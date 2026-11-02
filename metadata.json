@@ -1,0 +1,6 @@
+{
+  "name": "ZANDO Pro",
+  "description": "Logiciel intelligent de gestion commerciale pour boutiques, magasins et commerçants. Gestion des ventes, stocks, dettes, commandes, dépenses et assistant commercial en français.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

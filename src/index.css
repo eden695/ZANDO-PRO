@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+  
+  .font-mono, code, kbd, samp, pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Print utilities for A4 & 80mm thermal receipt */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-ticket {
+    width: 80mm !important;
+    max-width: 80mm !important;
+    margin: 0 auto !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+  }
+  .print-a4 {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}

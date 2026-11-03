@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { MarketingPost } from '../../types';
 import { formatMoney, formatDate } from '../../utils/formatters';
 import { compressImage } from '../../utils/imageCompressor';
+import { defaultLogoUrl, getValidImageUrl } from '../../utils/assets';
 import { Modal } from '../common/Modal';
 import {
   Share2,
@@ -537,7 +538,7 @@ export const PublicationsView: React.FC = () => {
                 {/* Header Mock */}
                 <div className="p-3 border-b border-slate-100 flex items-center gap-2.5">
                   <img
-                    src={settings.logoUrl || '/src/assets/images/zando_app_logo_1793623512765.jpg'}
+                    src={getValidImageUrl(settings.logoUrl, defaultLogoUrl)}
                     alt="Logo"
                     className="w-8 h-8 rounded-full object-cover"
                   />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Sale, Debt } from '../../types';
 import { formatMoney, formatDateTime, formatDate } from '../../utils/formatters';
+import { defaultLogoUrl, getValidImageUrl } from '../../utils/assets';
 import { Printer, Download, X, FileText, CheckCircle2 } from 'lucide-react';
 
 interface InvoiceDocumentProps {
@@ -101,7 +102,7 @@ export const InvoiceDocument: React.FC<InvoiceDocumentProps> = ({
                 <div className="flex items-start justify-between border-b border-slate-200 pb-8">
                   <div className="flex items-start gap-4">
                     <img
-                      src={settings.logoUrl || '/src/assets/images/zando_app_logo_1793623512765.jpg'}
+                      src={getValidImageUrl(settings.logoUrl, defaultLogoUrl)}
                       alt="Logo"
                       className="w-16 h-16 rounded-lg object-cover ring-1 ring-slate-200"
                     />

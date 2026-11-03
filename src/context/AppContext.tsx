@@ -33,6 +33,7 @@ import {
   INITIAL_USERS,
 } from './seedData';
 import { generateId } from '../utils/formatters';
+import { getValidImageUrl, defaultLogoUrl } from '../utils/assets';
 
 const STORAGE_KEY = 'zando_pro_store_v1';
 
@@ -176,7 +177,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [products, setProducts] = useState<Product[]>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_products`);
-      return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
+      if (saved) {
+        const parsed: Product[] = JSON.parse(saved);
+        return parsed.map((p) => ({
+          ...p,
+          imageUrl: getValidImageUrl(p.imageUrl, ''),
+        }));
+      }
+      return INITIAL_PRODUCTS;
     } catch {
       return INITIAL_PRODUCTS;
     }
@@ -239,7 +247,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [marketingPosts, setMarketingPosts] = useState<MarketingPost[]>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_posts`);
-      return saved ? JSON.parse(saved) : INITIAL_POSTS;
+      if (saved) {
+        const parsed: MarketingPost[] = JSON.parse(saved);
+        return parsed.map((p) => ({
+          ...p,
+          mediaUrl: p.mediaUrl ? getValidImageUrl(p.mediaUrl, '') : '',
+        }));
+      }
+      return INITIAL_POSTS;
     } catch {
       return INITIAL_POSTS;
     }
@@ -257,7 +272,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [settings, setSettings] = useState<StoreSettings>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_settings`);
-      return saved ? JSON.parse(saved) : INITIAL_SETTINGS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          ...INITIAL_SETTINGS,
+          ...parsed,
+          logoUrl: getValidImageUrl(parsed.logoUrl, defaultLogoUrl),
+        };
+      }
+      return INITIAL_SETTINGS;
     } catch {
       return INITIAL_SETTINGS;
     }
@@ -295,7 +318,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [previewDocument, setPreviewDocument] = useState<PreviewDocument | null>(null);
 
   const currentUser = useMemo(() => {
-    return users.find((u) => u.id === currentUserId) || users[0];
+    if (!users || users.length === 0) {
+      return INITIAL_USERS[0];
+    }
+    return users.find((u) => u.id === currentUserId) || users[0] || INITIAL_USERS[0];
   }, [users, currentUserId]);
 
   const triggerSaveFeedback = () => {
@@ -347,7 +373,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   ]);
 
   const hasPermission = (permission: keyof UserPermissions): boolean => {
-    const perms = ROLE_PERMISSIONS[currentUser.role];
+    const role = currentUser?.role || 'ADMIN';
+    const perms = ROLE_PERMISSIONS[role];
     return perms ? perms[permission] : false;
   };
 
@@ -1004,11 +1031,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       if (data.suppliers) setSuppliers(data.suppliers);
       if (data.marketingPosts) setMarketingPosts(data.marketingPosts);
       if (data.stockMovements) setStockMovements(data.stockMovements);
-      if (data.settings) setSettings(data.settings);
-      if (data.users) setUsers(data.users);
+      if (data.settings) {
+        setSettings({
+          ...INITIAL_SETTINGS,
+          ...data.settings,
+          logoUrl: getValidImageUrl(data.settings.logoUrl, defaultLogoUrl),
+        });
+      }
+      if (data.users && Array.isArray(data.users) && data.users.length > 0) setUsers(data.users);
       showToast('Sauvegarde restaurée avec succès !', 'success');
       return true;
-    } catch (e) {
+    } catch {
       showToast('Échec de la restauration : fichier JSON corrompu ou invalide.', 'error');
       return false;
     }
@@ -1026,6 +1059,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setStockMovements(INITIAL_MOVEMENTS);
     setSettings(INITIAL_SETTINGS);
     setUsers(INITIAL_USERS);
+    setCurrentUserId('usr_admin');
+    setActiveTab('dashboard');
     showToast('Données réinitialisées aux valeurs par défaut de démonstration.', 'info');
   };
 

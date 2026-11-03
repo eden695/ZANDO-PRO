@@ -3,6 +3,7 @@ import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
 import { InvoiceDocument } from './components/documents/InvoiceDocument';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 // Modules
 import { DashboardView } from './components/modules/DashboardView';
@@ -99,7 +100,7 @@ const MainLayout: React.FC = () => {
         <InvoiceDocument
           sale={previewDocument.sale}
           debt={previewDocument.debt}
-          defaultMode={(previewDocument as any).defaultMode || 'A4'}
+          defaultMode={previewDocument.defaultMode || 'A4'}
           onClose={() => setPreviewDocument(null)}
         />
       )}
@@ -135,8 +136,10 @@ const MainLayout: React.FC = () => {
 
 export default function App() {
   return (
-    <AppProvider>
-      <MainLayout />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <MainLayout />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }

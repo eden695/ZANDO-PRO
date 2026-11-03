@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { CurrencyCode } from '../../types';
+import { defaultLogoUrl, getValidImageUrl } from '../../utils/assets';
 import {
   ShoppingBag,
   CheckCircle2,
@@ -45,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
           className="flex items-center gap-2.5 cursor-pointer group"
         >
           <img
-            src={settings.logoUrl || '/src/assets/images/zando_app_logo_1793623512765.jpg'}
+            src={getValidImageUrl(settings.logoUrl, defaultLogoUrl)}
             alt="ZANDO Pro Logo"
             className="w-8 h-8 rounded-lg object-cover ring-1 ring-cyan-500/30"
           />

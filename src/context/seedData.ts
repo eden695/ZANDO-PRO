@@ -11,11 +11,17 @@ import {
   User,
   StockMovement,
 } from '../types';
+import {
+  defaultLogoUrl,
+  sneakersImgUrl,
+  smartwatchImgUrl,
+  leatherBagImgUrl,
+} from '../utils/assets';
 
 export const INITIAL_SETTINGS: StoreSettings = {
   companyName: 'Boutique ZANDO Prestige',
   tagline: 'Mode, Accessoires & Technologie de Pointe',
-  logoUrl: '/src/assets/images/zando_app_logo_1793623512765.jpg',
+  logoUrl: defaultLogoUrl,
   phone: '+225 07 48 92 10 33',
   email: 'contact@zandoprestige.ci',
   address: 'Plateau, Rue du Commerce, Immeuble Horizon 2, Abidjan',
@@ -72,7 +78,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockQuantity: 18,
     lowStockThreshold: 5,
     description: 'Baskets blanches et marines confort haute résistance, semelle amortissante.',
-    imageUrl: '/src/assets/images/product_sneakers_urban_1793623513405.jpg',
+    imageUrl: sneakersImgUrl,
     createdAt: '2026-10-15T10:00:00.000Z',
     updatedAt: '2026-10-15T10:00:00.000Z',
   },
@@ -86,7 +92,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockQuantity: 7,
     lowStockThreshold: 3,
     description: 'Montre connectée étanche avec suivi cardiaque, GPS sport et autonomie 10 jours.',
-    imageUrl: '/src/assets/images/product_smartwatch_elite_1793623514396.jpg',
+    imageUrl: smartwatchImgUrl,
     createdAt: '2026-10-18T14:30:00.000Z',
     updatedAt: '2026-10-18T14:30:00.000Z',
   },
@@ -100,7 +106,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockQuantity: 4,
     lowStockThreshold: 5, // Triggers low stock alert
     description: 'Sacoche en cuir véritable tannage végétal, boucle laiton antique et multiples poches.',
-    imageUrl: '/src/assets/images/product_leather_bag_1793623514277.jpg',
+    imageUrl: leatherBagImgUrl,
     createdAt: '2026-10-20T09:15:00.000Z',
     updatedAt: '2026-10-20T09:15:00.000Z',
   },
@@ -458,7 +464,7 @@ export const INITIAL_POSTS: MarketingPost[] = [
     adText: '🔥 NOUVEL ARRIVAGE CHEZ ZANDO PRO !\n\nSoyez au sommet du style avec nos nouvelles Sneakers Lifestyle Urban Streetwear. Confort incomparable, semelle amortissante et finitions premium.\n\n⚡ Quantités très limitées en boutique !\n📦 Livraison rapide disponible à domicile.',
     productId: 'prd_sneakers',
     productPrice: 38000,
-    mediaUrl: '/src/assets/images/product_sneakers_urban_1793623513405.jpg',
+    mediaUrl: sneakersImgUrl,
     mediaType: 'IMAGE',
     hashtags: '#ZandoPro #SneakersAbidjan #StreetwearStyle #ModeHomme #QualiteSuperieure',
     status: 'PRET',
@@ -470,7 +476,7 @@ export const INITIAL_POSTS: MarketingPost[] = [
     adText: '⌚ MAÎTRISEZ VOTRE TEMPS ET VOS PERFORMANCES !\n\nDécouvrez la Montre Connectée Stealth Series Titan : design titane ultra-résistant, autonomie 10 jours et notifications instantanées.\n\nPassez votre commande dès aujourd\'hui !',
     productId: 'prd_watch',
     productPrice: 65000,
-    mediaUrl: '/src/assets/images/product_smartwatch_elite_1793623514396.jpg',
+    mediaUrl: smartwatchImgUrl,
     mediaType: 'IMAGE',
     hashtags: '#Smartwatch #HighTech #ZandoPrestige #Productivite #Titan',
     status: 'PRET',

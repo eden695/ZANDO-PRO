@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { CurrencyCode } from '../../types';
 import { Modal } from '../common/Modal';
 import { compressImage } from '../../utils/imageCompressor';
+import { defaultLogoUrl, getValidImageUrl } from '../../utils/assets';
 import {
   Settings,
   Building,
@@ -181,7 +182,7 @@ export const SettingsView: React.FC = () => {
         {/* Logo Upload */}
         <div className="pt-3 border-t border-slate-100 flex items-center gap-4">
           <img
-            src={settings.logoUrl || '/src/assets/images/zando_app_logo_1793623512765.jpg'}
+            src={getValidImageUrl(settings.logoUrl, defaultLogoUrl)}
             alt="Logo actuel"
             className="w-14 h-14 rounded-xl object-cover ring-1 ring-slate-300 shrink-0"
           />

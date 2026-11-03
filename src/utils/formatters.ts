@@ -26,13 +26,14 @@ export function formatDate(dateString: string): string {
   if (!dateString) return '-';
   try {
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '-';
     return date.toLocaleDateString('fr-FR', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
     });
   } catch {
-    return dateString;
+    return '-';
   }
 }
 
@@ -40,6 +41,7 @@ export function formatDateTime(dateString: string): string {
   if (!dateString) return '-';
   try {
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '-';
     return date.toLocaleDateString('fr-FR', {
       day: '2-digit',
       month: 'short',
@@ -48,7 +50,7 @@ export function formatDateTime(dateString: string): string {
       minute: '2-digit',
     });
   } catch {
-    return dateString;
+    return '-';
   }
 }
 
